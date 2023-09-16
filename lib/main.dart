@@ -69,28 +69,33 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     setState(() {
                       storyBrain.nextStory(1);
+                      print("choice1");
                     });
                   },
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                color: const Color.fromARGB(123, 76, 175, 79),
-                margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: TextButton(
-                  child: Text(
-                    storyBrain.getChoice2(),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+            Visibility(
+              visible: storyBrain.buttonShouldBeVisible(),
+              child: Expanded(
+                child: Container(
+                  color: const Color.fromARGB(123, 76, 175, 79),
+                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: TextButton(
+                    child: Text(
+                      storyBrain.getChoice2(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
                     ),
+                    onPressed: () {
+                      setState(() {
+                        storyBrain.nextStory(2);
+                        print("choice2");
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      storyBrain.nextStory(2);
-                    });
-                  },
                 ),
               ),
             ),

@@ -1,7 +1,14 @@
 import 'story.dart';
 
 class StoryBrain {
-  int storyNumber = 0;
+  int _storyNumber = 0;
+
+  int get storyNumber => _storyNumber;
+
+  set storyNumber(int value) {
+    _storyNumber = value;
+  }
+
   final List<Story> _storyData = [
     Story(
         storyTitle:
@@ -21,34 +28,62 @@ class StoryBrain {
         storyTitle:
             'What? Such a cop out! Did you know traffic accidents are the second leading cause of accidental death for most adult age groups?',
         choice1: 'Restart',
-        choice2: ''),
+        choice2: 'Restart'),
     Story(
         storyTitle:
             'As you smash through the guardrail and careen towards the jagged rocks below you reflect on the dubious wisdom of stabbing someone while they are driving a car you are in.',
         choice1: 'Restart',
-        choice2: ''),
+        choice2: 'Restart'),
     Story(
         storyTitle:
             'You bond with the murderer while crooning verses of "Can you feel the love tonight". He drops you off at the next town. Before you go he asks you if you know any good places to dump bodies. You reply: "Try the pier".',
         choice1: 'Restart',
-        choice2: '')
+        choice2: 'Restart')
   ];
 
   String getStory() {
-    return _storyData[0].storyTitle;
+    return _storyData[storyNumber].storyTitle;
   }
 
   String getChoice1() {
-    return _storyData[0].choice1;
+    return _storyData[storyNumber].choice1;
   }
 
   String getChoice2() {
-    return _storyData[0].choice2;
+    return _storyData[storyNumber].choice2;
   }
 
-  nextStory(choiceNumber) {}
-}
+  nextStory(choiceNumber) {
+    if (choiceNumber == 1 && storyNumber == 0) {
+      storyNumber = 2;
+    } else if (choiceNumber == 1 && storyNumber == 2) {
+      storyNumber = 5;
+    } else if (choiceNumber == 1 && storyNumber == 1) {
+      storyNumber = 2;
+    } else if (choiceNumber == 2 && storyNumber == 0) {
+      storyNumber = 1;
+    } else if (choiceNumber == 2 && storyNumber == 1) {
+      storyNumber = 3;
+    } else if (choiceNumber == 2 && storyNumber == 2) {
+      storyNumber = 4;
+    } else if ((storyNumber == 3 || storyNumber == 4 || storyNumber == 5) &&
+        (choiceNumber == 1 || choiceNumber == 2)) {
+      restart();
+    }
+  }
 
+  restart() {
+    storyNumber = 0;
+  }
+
+  bool buttonShouldBeVisible() {
+    if (storyNumber == 0 || storyNumber == 1 || storyNumber == 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
 
 
 
